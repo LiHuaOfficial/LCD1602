@@ -31,5 +31,5 @@ void LCD_init(void);//初始化函数
 void LCD_disp_char(uchar x,uchar y,uchar dat);
 void LCD_disp_string(uchar x,uchar y,uchar * str);
 void LCD_clear();
-void LCD_disp_number(uchar x,uchar y,uint dat);//数字为正
+void LCD_disp_number(uchar x,uchar y,int dat);//正负数都可，小于16位int
 #endif
