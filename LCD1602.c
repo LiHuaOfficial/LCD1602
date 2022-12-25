@@ -80,10 +80,14 @@ void LCD_disp_string(uchar y,uchar x,uchar * str)
 		if(y==1&&i>j&&flag) {LCD_write_command(0x80+0x40);flag=0;}
 	}
 }
-void LCD_disp_number(uchar x,uchar y,uint dat)//正数
+void LCD_disp_number(uchar x,uchar y,int dat)
 {
 	uchar datSize=0,tmp[6],res[6],i,tdatSize;
-
+	if(dat<0){
+		dat=-dat;
+		LCD_disp_char(x,y,'-');	
+	}
+	x++;
 	while(dat){
 		tmp[datSize]=dat%10;
 		dat/=10;
