@@ -89,7 +89,7 @@ void LCD_disp_number(uchar x,uchar y,int dat,uchar digit)
 		y++;
 		if(y>15){x++,y=0;}
 	}
-	
+
 	while(dat){
 		tmp[datSize]=dat%10;
 		dat/=10;
