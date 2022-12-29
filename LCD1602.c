@@ -80,26 +80,36 @@ void LCD_disp_string(uchar y,uchar x,uchar * str)
 		if(y==1&&i>j&&flag) {LCD_write_command(0x80+0x40);flag=0;}
 	}
 }
-void LCD_disp_number(uchar x,uchar y,int dat)
+void LCD_disp_number(uchar x,uchar y,int dat,uchar digit)
 {
 	uchar datSize=0,tmp[6],res[6],i,tdatSize;
 	if(dat<0){
 		dat=-dat;
-		LCD_disp_char(x,y,'-');	
+		LCD_disp_string(x,y,"-");	
+		y++;
+		if(y>15){x++,y=0;}
 	}
-	x++;
+	
 	while(dat){
 		tmp[datSize]=dat%10;
 		dat/=10;
 		datSize++;
 	}
-	tmp[datSize]='\0';
-	res[datSize]='\0';
+	//tmp[datSize]='\0';
+	res[digit]='\0';
 	tdatSize=datSize;
-	for(i=0;i<tdatSize;i++)
+	dat=digit-datSize;//计算0占位	
+	for(i=0;i<digit||i<tdatSize;i++)
 	{
-		res[i]=tmp[--datSize];
-		res[i]=res[i]+'0';
+		if(dat>0){
+			dat--;
+			res[i]='0';
+		}
+		else{
+			res[i]=tmp[--datSize];
+			res[i]=res[i]+'0';
+		}
+		
 	}
 	LCD_disp_string(x,y,res);
 }
